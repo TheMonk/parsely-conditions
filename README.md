@@ -1,5 +1,4 @@
 # parsely-conditions
-==================
 
 A jQuery plugin that adds conditional logic to the [Parsely.js](http://parsleyjs.org) form validation library
 
