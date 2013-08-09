@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+
+    <script language="javascript" type="text/javascript" src="javascripts/jquery-1.10.2.min.js"></script>
+    <script language="javascript" type="text/javascript" src="javascripts/parsley.min.js"></script>
+    <script language="javascript" type="text/javascript" src="javascripts/parselyConditions.min.js"></script>
+
+    <meta name="description" content="Parsely-conditions : A jQuery plugin that adds conditional logic to the Parsely.js form validation library" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Parsely-conditions by Pierre Lemoine / monkinteractive.com</title>
+
+    <style>
+        #maskDiv {
+            display: none;
+        }
+
+        #maskDiv.parselyTaDa {
+            display: block;
+        }
+
+        form li {
+            list-style-type: none;
+        }
+
+        form ul, form li {
+            padding: 0;
+            margin: 0;
+        }
+
+        .parsley-error-list {
+            color: #CC0606;
+        }
+
+    </style>
+
+    <script language="javascript">
+    var fValidate = $.parselyConditions({
+        formname: 'customForm',
+        validationfields: [{
+            fid: 'formTrigger',
+            ftype: 'checkbox',
+            fvalue: 'yes',
+            faffected: 'toggledField',
+            fhide: 'maskDiv'
+        }],
+    });
+
+    $(function() {
+        fValidate.toggleFields();
+    });
+
+
+    function submitForm(){
+        if(fValidate.checkFields()){
+            alert('Success!');
+        } else {
+            alert('failed');
+        }
+    }
+    </script>
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/TheMonk/parsely-conditions">View on GitHub</a>
+
+          <h1 id="project_title">Parsely-conditions</h1>
+          <h2 id="project_tagline">A jQuery plugin that adds conditional logic to the Parsely.js form validation library</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/TheMonk/parsely-conditions/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/TheMonk/parsely-conditions/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        
+        <p> <a href="index.html#demos">< Back to home</a></p>
+
+                <h3>Simple Example With Show / Hide</h3>
+
+                <p>This is a simple example of form validation. It uses the code displayed on the plugin homepage. Checking off "Yes" will add validation to the second field and make it appear.</p>
+
+                <form method="post" id="customForm" data-validate="parsley" data-show-errors="true">
+Do you like ice cream?<br />
+Yes: <input type="checkbox" id="formTrigger" name="formTrigger" value="yes" />
+
+<div id="maskDiv">
+    What's your favorite flavour?<br />
+    <input id="toggledField" name="toggledField" type="text" data-trigger="change" data-required="true"/>
+</div>
+
+<input type="button" value="Submit" onclick="javascript:submitForm();" />
+</form>
+
+<p>Here's the plugin code used for this example.</p>
+
+<pre><code>var fValidate = $.parselyConditions({<br />&nbsp; &nbsp; &nbsp; &nbsp; formname: &#39;customForm&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; validationfields: [{<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fid: &#39;formTrigger&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ftype: &#39;checkbox&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fvalue: &#39;yes&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; faffected: &#39;toggledField&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fhide: &#39;maskDiv&#39;<br />&nbsp; &nbsp; &nbsp; &nbsp; }],<br />&nbsp; &nbsp; });</code></pre>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Parsely-conditions maintained by <a href="https://github.com/TheMonk">Pierre Lemoine</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

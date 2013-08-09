@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Parsely-conditions</title>
+    <title>Parsely-conditions by Pierre Lemoine / monkinteractive.com</title>
   </head>
 
   <body>
@@ -31,44 +31,151 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        
+        <p>Want to skip the long intro? We have you covered. Select what you want from below</p>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+                <ul>
+                    <li><a href="#setup">Plugin options</a></li>
+                    <li><a href="#fields">Field options</a></li>
+                    <li><a href="#showhide">Enable Show / Hide</a></li>
+                    <li><a href="#submitform">Submitting a Form</a></li>
+                    <li><a href="#demos">Demos</a></li>
+                </ul>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+                <h3>Required Libraries</h3>
+                <p>Parsely Conditions requires the following plugins to work.</p>
+                <ul>
+                    <li><a href="http://jquery.com" target="_blank">jQuery 1.7.1 or greater</a></li>
+                    <li><a href="http://parsleyjs.org" target="_blank">Parsely JS</a></li>
+                </ul>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+                <h3>Installation</h3>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+                <p>The conditional plugin requires a few things to get started.</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+                <p>First ensure you have the latest version of <a href="http://jquery.com" target="_blank">jQuery</a> linked in the header of your page. If you want to support earlier versions of IE use jQuery 1.9 or lower, otherwise jQuery 2 should do the trick. If you really want to go old school Parsely Conditions has been tested with jQuery 1.7.1.</p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+                <p>Add the <a href="http://parsleyjs.org/" target="_blank">Parsely JS library</a> after the jQuery link. As of this writing Parsely Conditions has been tested with Parsely 1.1.16.</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+                <p>Next add the latest Parsely Conditions plugin to the top of your page, after the jQuery and Parsely links.</p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+                <h3>Form Setup</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+                <p>If you're ever used Parsely on an existing form this part will be very familiar to you. Add Parsely validation rules to your form like you normally would. Note that you should add validation to all fields even those you intend to enable conditionaly, the conditional plugin will toggle any rules you add. If you need help adding Parsely validation rules <a href="http://parsleyjs.org/documentation.html" target="_blank">visit the official Parsely docs.</a>
+                </p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+                <p>The documentation on this page will use the following form structure as reference. Let's assume you have a form that includes a select and an input field. Selecting "Yes" from the select should make the input field required. The conditional script will toggle the rules you set on and off. See the code sample below that illustrates this example.</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+                <pre><code>&lt;form method=&quot;post&quot; id=&quot;customForm&quot; data-validate=&quot;parsley&quot;&nbsp;<br />data-show-errors=&quot;true&quot;&gt;<br /><br />&lt;select id=&quot;formTrigger&quot; name=&quot;formTrigger&quot;<br />data-notblank=&quot;true&quot; data-required=&quot;true&quot; data-trigger=&quot;change&quot;&gt;<br />&nbsp; &nbsp;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;<br />&nbsp; &nbsp;&lt;option value=&quot;yes&quot;&gt;Yes&lt;/option&gt;<br />&nbsp; &nbsp;&lt;option value=&quot;no&quot;&gt;No&lt;/option&gt;<br />&lt;/select&gt;<br /><br />&lt;div id=&quot;maskDiv&quot;&gt;<br />&nbsp; &nbsp; &lt;input id=&quot;toggledField&quot; name=&quot;toggledField&quot; type=&quot;text&quot;&nbsp;<br />data-trigger=&quot;change&quot; data-required=&quot;true&quot;/&gt;<br />&lt;/div&gt;<br /><br />&lt;input type=&quot;button&quot; value=&quot;Submit&quot;&nbsp;<br />onclick=&quot;javascript:submitForm();&quot; /&gt;<br />&lt;/form&gt;</code></pre>
+                
+                <a name="setup" class="anchor" href="#setup"><span class="octicon octicon-link"></span></a>
+                <h3>Initializing the Plugin</h3>
+                
+                <p>To begin using the plugin you'll need to configure a few options first. Take a look at the code block below.</p>
+                
+                <pre><code>var fValidate = $.parselyConditions({<br />&nbsp;&nbsp;<br />&nbsp; &nbsp; csstoggle: &#39;parselyTaDa&#39;,<br />&nbsp; &nbsp; formname: &#39;customForm&#39;,<br />&nbsp;&nbsp;<br />&nbsp; &nbsp; validationfields: [<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fid: &#39;formTrigger&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ftype: &#39;select&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fvalue: &#39;yes&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; faffected: &#39;toggledField&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fhide: &#39;maskDiv&#39;<br />&nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; ]<br /><br />});</code></pre>
+
+                <p>Let's review the code line by line. First a copy of the plugin is saved to a variable "fvalidate". Next we define a few global options for the plugin.</p>
+                
+                <h4>csstoggle</h4>
+                <p>
+                  Parsely conditional lets you hide or show parts of your form via CSS. It does this by adding and removing a class on a DOM element. (More on showing and hiding dom elements shortly.) By default Parsely Conditional adds a class called "parselyTaDa" to the DOM element. Don't like parselyTaDa? No problem just sepcify a class that's more to your liking as demonstrated above.
+                </p>
+
+                <h4>formname</h4>
+                <p>
+                  Parsely Conditional uses an id on the form declaration to apply it's conditions. By default the plugin assumes the form has an id of "#parsely-form". However you can override the default form id using this plugin option.
+                </p>
+
+                <p>That's it for global settings, next you'll need to specify the rules for each input that triggers a condition. Using the example above "formTrigger" makes "toggleField" a required form field. Changing "formTrigger" to "Yes" will also make "toggleField" appear in the form. </p>
+                
+                <a name="fields" class="anchor" href="#fields"><span class="octicon octicon-link"></span></a>
+                <h3>Initializing the Form Fields</h3>
+
+                <p>
+                  You need to specify a few options for each input that will trigger a condition. In the case above I've added the input with the id of "formTrigger" to the plugin. Let's look at how that's done.
+                </p>
+
+                <pre><code>validationfields: [<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fid: &#39;formTrigger&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ftype: &#39;select&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fvalue: &#39;yes&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; faffected: &#39;toggledField&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fhide: &#39;maskDiv&#39;<br />&nbsp; &nbsp; &nbsp; &nbsp; }
+]</code></pre>
+
+                <h4>fid</h4>
+                <p><em><strong>Accepted input: string</strong></em></p>
+                <p>The id of the form input that triggers a condition. When specifying the id omit the #.</p>
+
+                <h4>ftype</h4>
+                <p><em><strong>Accepted input:  one of the following strings - select, checkbox, checklist or radio</strong></em></p>
+                <p>Identify the type of field that is triggering the condition. Parsely Conditional can be applied to select menus, radio buttons, checkbox or checlists (a related group of check boxes ie: click all that apply). When specifying the id omit the #.</p>
+
+                <h4>fvalue</h4>
+                <p><em><strong>Accepted input: string or array of strings</strong></em></p>
+                <p>Specify the value which the plugin should match to enable conditions on another field. This can be a single value such as "yes" or if multiple possible answers can trigger a condition an array of potential answers can be passed. Below is an example of a single value and an array of potential answers.</p>
+
+                <pre><code>// Single value<br />fvalue:&quot;apples&quot;,<br /><br />// Multiple values&nbsp;<br />fvalue:[&#39;apples&#39;,&#39;oranges&#39;,&#39;other&#39;],</code></pre>
+
+                <h4>faffected</h4>
+                <p><em><strong>Accepted input: string, array of strings or false</strong></em></p>
+                <p>A form input or inputs who's validation is toggled on or off. This can be a single form input, multiple form inputs or set to false. Multiple form inputs is useful if you want to require a section of your form conditionally. For example if someone checks a box that indicates they have a different shipping address.</p>
+
+                <p>False can be used if you don't want to trigger validation on an extra field but you want to display an alert message to the user. Setting this to false and adding a div id to fhide allows you to show a message conditionally within your form. For example if someone clicks express shipping you could display a message that tells them how much more express shipping would cost. When specifying the id omit the #.
+                </p>
+
+                <h4>fhide</h4>
+                <p><em><strong>Accepted input: string, array of strings or false</strong></em></p>
+
+                <h3>Adding multiple form fields</h3>
+                <p>To add multiple form fields to the plugin, simply seperate each input declaration with a comma. In the example below each grouping within the curly brackets represents a form input to which conditional logic has been applied.</p>
+
+                <pre><code>validationfields: [<br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fid: &#39;formTrigger&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ftype: &#39;select&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fvalue: &#39;yes&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; faffected: &#39;toggledField&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fhide: &#39;maskDiv&#39;<br />&nbsp; &nbsp; &nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fid: &#39;formTrigger2&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ftype: &#39;checklist&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fvalue: [&#39;blue&#39;,&#39;other&#39;],<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; faffected: [&#39;toggledField2&#39;,&#39;toggleField3&#39;],<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fhide: [&#39;maskDiv2&#39;,&#39;maskDiv3&#39;]<br />&nbsp; &nbsp; &nbsp; &nbsp; },<br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fid: &#39;formTrigger3&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ftype: &#39;checkbox&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fvalue: &#39;other&#39;,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; faffected: false,<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fhide: &#39;maskDiv4&#39;<br />&nbsp; &nbsp; &nbsp; &nbsp; }<br />]</code></pre>
+                
+                <a name="showhide" class="anchor" href="#showhide"><span class="octicon octicon-link"></span></a>
+                <h3>Add Show / Hide Listeners</h3>
+
+                <p>To enable the showing and hiding of DOM elements you must call the toggleFields() method. This adds an event listener to each toggle field which triggers the showing and hiding. The example below uses jQuery's ready event and calls the toggleFields method when the DOM tree is loaded.</p>
+
+                <pre><code>$(function() {<br />&nbsp; &nbsp; &nbsp; &nbsp; fValidate.toggleFields();<br />});</code></pre>
+
+                <a name="submitform" class="anchor" href="#submitform"><span class="octicon octicon-link"></span></a>
+                <h3>Submitting and Validating the Form</h3>
+
+                <p>To validate the form you'll need to call the method "checkFields()". Using the example on this page here's how to validate your form.</p>
+
+                <pre><code>fValidate.checkFields();</code></pre>
+
+                <p>This method returns true if the form validates or false if the validation fails. Providing a boolean value allows you to customize what happens before or after a submission occurs and respond accordingly.</p>
+
+                <p>Here is an example of a custom form submission function.</p>
+                <pre><code>function submitForm(){<br />&nbsp; &nbsp; if(fValidate.checkFields()){&nbsp;<br />&nbsp; &nbsp; &nbsp; &nbsp; alert(&#39;Form successful!&#39;);<br />&nbsp; &nbsp; &nbsp; &nbsp; // your custom js form submission code here!<br />&nbsp; &nbsp; } else {<br />&nbsp; &nbsp; &nbsp; &nbsp; alert(&#39;Form failed&#39;);<br />&nbsp; &nbsp; &nbsp; &nbsp; // display an error message to the user...<br />&nbsp; &nbsp; }<br />}</code></pre>
+
+                
+                <a name="demos" class="anchor" href="#demos"><span class="octicon octicon-link"></span></a>
+                <h3>Demos</h3>
+
+                <h4>Simple Example Without Whow and Hide</h4>
+                <p>This simple example demonstrates conditional logic being applied and removed on a field. <a href="demo-simple-no-show-hide.html">View this demo.</a></p>
+
+                <h4>Simple Example With Show and Hide</h4>
+                <p>This simple example demonstrates conditional logic being applied and removed on a field it also toggles the visibility of the second field. <a href="demo-simple-show-hide.html">View this demo.</a></p>
+
+                <h4>Multiple Field Example</h4>
+                <p>This example demonstrates conditional logic being applied to multiple fields from a single trigger. It also toggles the visibility on the same group of fields. <a href="demo-multi-fields.html">View this demo.</a></p>
+
+                <h4>Dialog Only</h4>
+                <p>This examples demonstrates how you can toggle visibility on a DOM element using a trigger field. It also demonstrates how to bypass toggling validation logic. <a href="demo-dialog-only.html">View this demo.</a></p>
+
+                <h4>Multiple Condition on the Same Input</h4>
+                <p>This examples demonstrates how to combine multiple options together on the same input. It also highlights how a checklist is applied. <a href="demo-multi-effects.html">View this demo.</a></p>
+
+                <h4>Nested Conditional Logic</h4>
+                <p>This example shows how conditional triggers can be nested one within another. It also demonstrates how a single trigger can toggle multiple DOM elements on and off.<a href="demo-nested-conditions.html"> View this demo.</a></p>
+
       </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Parsely-conditions maintained by <a href="https://github.com/TheMonk">TheMonk</a></p>
+        <p class="copyright">Parsely-conditions maintained by <a href="https://github.com/TheMonk">Pierre Lemoine</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
